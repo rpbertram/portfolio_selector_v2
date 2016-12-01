@@ -10,7 +10,8 @@ class ClientsController < ApplicationController
   end
 
   def index
-    @clients = current_user.clients.page(params[:page]).per(10)
+    @q = current_user.clients.ransack(params[:q])
+      @clients = @q.result(:distinct => true).includes(:user, :allocations, :funds).page(params[:page]).per(10)
 
     render("clients/index.html.erb")
   end
