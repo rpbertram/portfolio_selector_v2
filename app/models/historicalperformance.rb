@@ -5,6 +5,8 @@ class Historicalperformance < ApplicationRecord
 
   # Validations
 
+  validates :performance, :uniqueness => { :scope => [:fund_id, :month] }
+
   validates :performance, :presence => true
 
   validates :performance, :numericality => true
