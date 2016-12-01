@@ -23,7 +23,7 @@
         <td><%= client.accountsize %></td>
         <td><%= client.mgmt_fee %></td>
         <td><%= client.risktolerance %></td>
-        <td><%= client.user_id %></td>
+        <td><%= client.user.email %></td>
         <td>
           <a href="/clients/<%= client.id %>" class="btn btn-primary">Show</a>
           <a href="/clients/<%= client.id %>/edit" class="btn btn-warning">Edit</a>
