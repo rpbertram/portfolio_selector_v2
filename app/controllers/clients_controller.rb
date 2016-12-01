@@ -10,7 +10,7 @@ class ClientsController < ApplicationController
   end
 
   def index
-    @clients = Client.all
+    @clients = current_user.clients.page(params[:page]).per(10)
 
     render("clients/index.html.erb")
   end
