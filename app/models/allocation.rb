@@ -5,6 +5,8 @@ class Allocation < ApplicationRecord
 
   # Validations
 
+  validates :client_id, :presence => true
+
   validates :fund_id, :presence => true
 
   validates :percentage, :presence => true
