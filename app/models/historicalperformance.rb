@@ -1,6 +1,9 @@
 class Historicalperformance < ApplicationRecord
   # Direct associations
 
+  belongs_to :fund,
+             :counter_cache => true
+
   # Indirect associations
 
   # Validations
