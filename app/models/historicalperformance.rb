@@ -5,4 +5,6 @@ class Historicalperformance < ApplicationRecord
 
   # Validations
 
+  validates :performance, :numericality => true
+
 end
