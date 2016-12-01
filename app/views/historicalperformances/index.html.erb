@@ -17,7 +17,13 @@
 
       <% @historicalperformances.each do |historicalperformance| %>
       <tr>
-        <td><%= historicalperformance.fund.name %></td>
+        <td>
+          <% if historicalperformance.fund.present? %>
+            <a href="/funds/<%= historicalperformance.fund.id %>">
+              <%= historicalperformance.fund.name %>
+            </a>
+          <% end %>
+        </td>
         <td><%= historicalperformance.month %></td>
         <td><%= historicalperformance.performance %></td>
         <td>

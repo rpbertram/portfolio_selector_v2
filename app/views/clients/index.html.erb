@@ -23,7 +23,13 @@
         <td><%= client.accountsize %></td>
         <td><%= client.mgmt_fee %></td>
         <td><%= client.risktolerance %></td>
-        <td><%= client.user.email %></td>
+        <td>
+          <% if client.user.present? %>
+            <a href="/users/<%= client.user.id %>">
+              <%= client.user.email %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <a href="/clients/<%= client.id %>" class="btn btn-primary">Show</a>
           

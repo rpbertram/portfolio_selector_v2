@@ -18,7 +18,13 @@
       <dd><%= @client.risktolerance %></dd>
 
       <dt>User</dt>
-      <dd><%= @client.user_id %></dd>
+      <dd>
+        <% if @client.user.present? %>
+          <a href="/users/<%= @client.user_id %>">
+            <%= @client.user.email %>
+          </a>
+        <% end %>
+      </dd>
 
     </dl>
 
