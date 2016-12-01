@@ -9,6 +9,10 @@ class Fund < ApplicationRecord
 
   # Indirect associations
 
+  has_many   :clients,
+             :through => :allocations,
+             :source => :client
+
   # Validations
 
   validates :name, :uniqueness => { :scope => [:risktolerance] }

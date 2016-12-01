@@ -9,6 +9,10 @@ class Client < ApplicationRecord
 
   # Indirect associations
 
+  has_many   :funds,
+             :through => :allocations,
+             :source => :fund
+
   # Validations
 
 end
