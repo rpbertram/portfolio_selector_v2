@@ -5,4 +5,6 @@ class Fund < ApplicationRecord
 
   # Validations
 
+  validates :risktolerance, :presence => true
+
 end
