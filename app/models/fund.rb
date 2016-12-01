@@ -5,6 +5,8 @@ class Fund < ApplicationRecord
 
   # Validations
 
+  validates :proxyflag, :presence => true
+
   validates :risktolerance, :presence => true
 
 end
