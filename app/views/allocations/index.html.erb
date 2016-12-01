@@ -18,7 +18,7 @@
       <% @allocations.each do |allocation| %>
       <tr>
         <td><%= allocation.client.clientname %></td>
-        <td><%= allocation.fund_id %></td>
+        <td><%= allocation.fund.name %></td>
         <td><%= allocation.percentage %></td>
         <td>
           <a href="/allocations/<%= allocation.id %>" class="btn btn-primary">Show</a>
