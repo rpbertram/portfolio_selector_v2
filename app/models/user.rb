@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   # Validations
 
+  validates :lastname, :uniqueness => { :scope => [:firstname] }
+
   validates :lastname, :presence => true
 
   validates :lastname, :length => { :minimum => 1 }
