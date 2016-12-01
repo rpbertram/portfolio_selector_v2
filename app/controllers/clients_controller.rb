@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :current_user_must_be_client_user, :only => [:edit, :update, :destroy]
+  before_action :current_user_must_be_client_user, :only => [:show, :edit, :update, :destroy]
 
   def current_user_must_be_client_user
     client = Client.find(params[:id])
