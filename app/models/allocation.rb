@@ -1,6 +1,9 @@
 class Allocation < ApplicationRecord
   # Direct associations
 
+  belongs_to :fund,
+             :counter_cache => true
+
   belongs_to :client,
              :counter_cache => true
 
