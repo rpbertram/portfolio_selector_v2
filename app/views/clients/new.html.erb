@@ -25,46 +25,45 @@
         </div>
         <!-- Label and input for risktolerance -->
         <div class="col-md-6">
-          <!-- Single button -->
-<div class="btn-group">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="risktolerance" name="risktolerance" value="<%= @client.risktolerance %>">
-    Risk Tolerance <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">Income</a></li>
-    <li><a href="#">Conservative</a></li>
-    <li><a href="#">Moderate Conservative</a></li>
-    <li><a href="#">Moderate</a></li>
-    <li><a href="#">Moderate Aggressive</a></li>
-    <li><a href="#">Aggressive</a></li>
-  </ul>
-</div>
-          <!-- <label for="risktolerance" class="control-label">Client's Risk Tolerance</label>
-          <input type="text" id="risktolerance" name="risktolerance" placeholder="Risktolerance" class="form-control" value="<%= @client.risktolerance %>"> -->
+          <label for="risktolerance" class="control-label">Client's Risk Tolerance</label>
+          <!-- <input type="text" id="risktolerance" name="risktolerance" placeholder="Risktolerance" class="form-control" value="<%= @client.risktolerance %>"> -->
+          <select class="form-control" type="text" id="risktolerance" name="risktolerance" placeholder="Risktolerance" value="<%= @client.risktolerance %>">
+            <option value="Income">Income</option>
+            <option value="Conservative">Conservative</option>
+            <option value="Moderately Conservative">Moderately Conservative</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Moderately Aggressive">Moderately Aggressive</option>
+            <option value="Aggressive">Aggressive</option>
+          </select>
+          </div>
         </div>
-      <!-- </div> -->
 
-      <!-- Label and input for accountsize -->
-      <div class="form-group">
-        <div class="col-md-6">
-          <label for="accountsize" class="control-label">Client's Account Size</label>
-          <input type="text" id="accountsize" name="accountsize" placeholder="Accountsize" class="form-control" value="<%= @client.accountsize %>">
+
+
+          <div class="form-group">
+<!-- Label and input for accountsize -->
+            <div class="col-md-6">
+              <label for="accountsize" class="control-label">Client's Account Size</label>
+              <input type="text" id="accountsize" name="accountsize" placeholder="Accountsize" class="form-control" value="<%= @client.accountsize %>">
+            </div>
+
+            <div class="col-md-6">
+              <!-- Label and input for mgmt_fee -->
+                <label for="mgmt_fee" class="control-label">Total Management Fee</label>
+                <input type="text" id="mgmt_fee" name="mgmt_fee" placeholder="Mgmt fee" class="form-control" value="<%= @client.mgmt_fee %>">
+              </div>
+            </div>
+
+
+
+              <!-- Label and input for user_id -->
+              <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+              <button class="btn btn-success">
+                Create Client
+              </button>
+              or
+              <a href="/clients">Cancel</a>
+            </form>
+          </div>
         </div>
-        <div class="col-md-6">
-          <!-- Label and input for mgmt_fee -->
-          <label for="mgmt_fee" class="control-label">Total Management Fee</label>
-          <input type="text" id="mgmt_fee" name="mgmt_fee" placeholder="Mgmt fee" class="form-control" value="<%= @client.mgmt_fee %>">
-        </div>
-      </div>
-
-      <!-- Label and input for user_id -->
-      <input type="hidden" name="user_id" value="<%= current_user.id %>">
-
-      <button class="btn btn-success">
-        Create Client
-      </button>
-      or
-      <a href="/clients">Cancel</a>
-    </form>
-  </div>
-</div>
