@@ -1,9 +1,10 @@
 <div class="page-header">
   <h1>
-    Clients
-    <a href="/clients/new" class="btn btn-lg btn-success">New Client</a>
+    Hello <%=current_user.firstname %> <a href="/clients/new" class="btn btn-md btn-success">Add Client</a>
   </h1>
-</div><div class="row mb-1">
+</div>
+
+<div class="row mb-1">
   <div class="col-md-12">
     <%= search_form_for @q, :class => "collapse", :id => "clients_filters" do |f| %>
       <p class="lead">Narrow results:</p>
@@ -101,16 +102,22 @@
     </a>
   </div>
 </div>
+<hr></hr>
 
-<div class="row">
-  <div class="col-md-12">
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"> <h4><b><i>Current Clients</i></b></h4></div>
+  <div class="panel-body">
+    <!-- <p>...</p> -->
+  <!-- </div> -->
+<!-- <div class="row">
+  <div class="col-md-12"> -->
     <table class="table table-striped table-hover">
       <tr>
-        <th>Clientname</th>
-        <th>Accountsize</th>
-        <th>Mgmt fee</th>
-        <th>Risktolerance</th>
-        <th>User</th>
+        <th>Client</th>
+        <th>Account Size</th>
+        <th>Management Fee</th>
+        <th>Risk Tolerance</th>
         <th>Actions</th>
       </tr>
 
@@ -120,24 +127,26 @@
         <td><%= client.accountsize %></td>
         <td><%= client.mgmt_fee %></td>
         <td><%= client.risktolerance %></td>
-        <td>
+        <!-- <td>
           <% if client.user.present? %>
             <a href="/users/<%= client.user.id %>">
               <%= client.user.email %>
             </a>
           <% end %>
-        </td>
+        </td> -->
         <td>
-          <a href="/clients/<%= client.id %>" class="btn btn-primary">Show</a>
-          
+          <a href="/clients/<%= client.id %>" class="btn btn-primary"> View </a>
+
           <% if current_user == client.user %>
-            <a href="/clients/<%= client.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/clients/<%= client.id %>/edit" class="btn btn-warning"> Edit </a>
             <a href="/delete_client/<%= client.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
           <% end %>
         </td>
       </tr>
       <% end %>
     </table>
+  </div>
+</div>
     <%= paginate @clients, theme: 'twitter-bootstrap-4' %>
   </div>
 </div>

@@ -1,15 +1,15 @@
 <!-- Validation failure messages -->
 <% if @client.errors.any? %>
-  <% @client.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
+<% @client.errors.full_messages.each do |message| %>
+<div class="alert alert-dismissable alert-danger">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <%= message %>
+</div>
+<% end %>
 <% end %>
 
 <div class="page-header">
-  <h3>Add Client</h3>
+  <h2><b>Add Client</b></h2>
 </div>
 
 <div class="row">
@@ -17,41 +17,30 @@
     <form action="/create_client" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
       <!-- Label and input for clientname -->
       <div class="form-group">
-        <label for="clientname" class="control-label">
-          Clientname
-        </label>
-
-        <input type="text" id="clientname" name="clientname" placeholder="Clientname" class="form-control" value="<%= @client.clientname %>">
+        <div class="col-md-6">
+          <label for="clientname" class="control-label">Client's Name</label>
+          <input type="text" id="clientname" name="clientname" placeholder="Clientname" class="form-control" value="<%= @client.clientname %>">
+        </div>
+        <!-- Label and input for risktolerance -->
+        <div class="col-md-6">
+          <label for="risktolerance" class="control-label">Client's Risk Tolerance</label>
+          <input type="text" id="risktolerance" name="risktolerance" placeholder="Risktolerance" class="form-control" value="<%= @client.risktolerance %>">
+        </div>
       </div>
 
       <!-- Label and input for accountsize -->
       <div class="form-group">
-        <label for="accountsize" class="control-label">
-          Accountsize
-        </label>
-
-        <input type="text" id="accountsize" name="accountsize" placeholder="Accountsize" class="form-control" value="<%= @client.accountsize %>">
-      </div>
-
-      <!-- Label and input for mgmt_fee -->
-      <div class="form-group">
-        <label for="mgmt_fee" class="control-label">
-          Mgmt fee
-        </label>
-
-        <input type="text" id="mgmt_fee" name="mgmt_fee" placeholder="Mgmt fee" class="form-control" value="<%= @client.mgmt_fee %>">
-      </div>
-
-      <!-- Label and input for risktolerance -->
-      <div class="form-group">
-        <label for="risktolerance" class="control-label">
-          Risktolerance
-        </label>
-
-        <input type="text" id="risktolerance" name="risktolerance" placeholder="Risktolerance" class="form-control" value="<%= @client.risktolerance %>">
+        <div class="col-md-6">
+          <label for="accountsize" class="control-label">Client's Account Size</label>
+          <input type="text" id="accountsize" name="accountsize" placeholder="Accountsize" class="form-control" value="<%= @client.accountsize %>">
+        </div>
+        <div class="col-md-6">
+          <!-- Label and input for mgmt_fee -->
+          <label for="mgmt_fee" class="control-label">Total Management Fee</label>
+          <input type="text" id="mgmt_fee" name="mgmt_fee" placeholder="Mgmt fee" class="form-control" value="<%= @client.mgmt_fee %>">
+        </div>
       </div>
 
       <!-- Label and input for user_id -->
