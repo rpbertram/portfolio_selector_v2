@@ -1,0 +1,33 @@
+id,name,risktolerance,proxyflag
+1,income fund 1,income,0
+2,income fund 2,income,0
+3,income fund 3,income,0
+4,income fund 4,income,0
+5,income fund 5,income,0
+6,conservative fund 1,conservative,0
+7,conservative fund 2,conservative,0
+8,conservative fund 3,conservative,0
+9,conservative fund 4,conservative,0
+10,conservative fund 5,conservative,0
+11,moderate conservative fund 1,moderate conservative,0
+12,moderate conservative fund 2,moderate conservative,0
+13,moderate conservative fund 3,moderate conservative,0
+14,moderate conservative fund 4,moderate conservative,0
+15,moderate conservative fund 5,moderate conservative,0
+16,moderate fund 1,moderate,0
+17,moderate fund 2,moderate,0
+18,moderate fund 3,moderate,0
+19,moderate fund 4,moderate,0
+20,moderate fund 5,moderate,0
+21,moderate aggressive fund 1,moderate aggressive,0
+22,moderate aggressive fund 2,moderate aggressive,0
+23,moderate aggressive fund 3,moderate aggressive,0
+24,moderate aggressive fund 4,moderate aggressive,0
+25,moderate aggressive fund 5,moderate aggressive,0
+26,aggressive fund 1,aggressive,0
+27,aggressive fund 2,aggressive,0
+28,aggressive fund 3,aggressive,0
+29,aggressive fund 4,aggressive,0
+30,aggressive fund 5,aggressive,0
+31,SP500 index,proxy,1
+32,bond index,proxy,1

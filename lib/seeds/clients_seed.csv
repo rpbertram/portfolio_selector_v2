@@ -1,0 +1,16 @@
+id,user_id,clientname,accountsize,mgmt_fee,risktolerance
+1,1,client 1,100000,1.75,moderate conservative
+2,1,client 2,200000,1.75,conservative
+3,1,client 3,400000,1.75,moderate aggressive
+4,2,client 4,1000000,2,moderate
+5,2,client 5,2000000,2,aggressive
+6,2,client 6,1000000,2,income
+7,3,client 7,500000,1.9,income
+8,3,client 8,1000000,1.9,moderate aggressive
+9,3,client 9,750000,1.9,moderate
+10,4,client 10,10000000,2.25,aggressive
+11,4,client 11,250000,2.25,conservative
+12,4,client 12,800000,2.25,moderate conservative
+13,5,client 13,750000,1.8,moderate aggressive
+14,5,client 14,50000,1.8,income
+15,5,client 15,2500000,1.8,aggressive
