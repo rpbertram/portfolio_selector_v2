@@ -69,9 +69,9 @@
 
   <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">Enter Fund Allocations <small>(as decimals)</small></div>
+    <div class="panel-heading"><big>Enter Fund Allocations</big> <small>(as decimals)</small></div>
     <div class="panel-body">
-      <div class="form-group">
+      <div class="form-group form-group-sm">
         <table class="table">
           <tr>
             <th>Income</th>
@@ -81,80 +81,111 @@
             <th>Moderate Aggressive</th>
             <th>Aggressive</th>
           </tr>
+
           <tr>
             <td>
-              <ul class = "list-unstyled">
+              <small>
+                <ul class = "list-unstyled">
                 <% @funds.where(:risktolerance => "income").each do |fund| %>
                 <li><%= fund.name %>
+                  <div class="input-group input-group-sm">
                   <label for="percentage" class="control-label"></label>
                   <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
                   <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
                   <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
-
+                </div>
                 </li>
                 <% end %>
               </ul>
+            </small>
             </td>
 
             <td>
+              <small>
               <ul class = "list-unstyled">
                 <% @funds.where(:risktolerance => "conservative").each do |fund| %>
-                <li><%= fund.name %></li>
+                <li><%= fund.name %>
+                <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
                 <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
                 <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
                 <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
-                <% end %>
+              </div>
+            </li>
+            <% end %>
               </ul>
+              </small>
             </td>
 
             <td>
+              <small>
               <ul class = "list-unstyled">
                 <% @funds.where(:risktolerance => "moderate conservative").each do |fund| %>
-                <li><%= fund.name %></li>
+                <li><%= fund.name %>
+                  <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
                 <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
                 <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
                 <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
-                <% end %>
+              </div>
+            </li>
+            <% end %>
+
               </ul>
+              </small>
             </td>
 
             <td>
+              <small>
               <ul class = "list-unstyled">
                 <% @funds.where(:risktolerance => "moderate").each do |fund| %>
-                <li><%= fund.name %></li>
+                <li><%= fund.name %>
+                  <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
                 <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
                 <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
                 <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+              </div>
+            </li>
                 <% end %>
               </ul>
+            </small>
             </td>
 
             <td>
+              <small>
               <ul class = "list-unstyled">
                 <% @funds.where(:risktolerance => "moderate aggressive").each do |fund| %>
-                <li><%= fund.name %></li>
+                <li><%= fund.name %>
+                <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
                 <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
                 <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
                 <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+              </div>
+            </li>
                 <% end %>
               </ul>
+              </small>
             </td>
 
             <td>
+              <small>
               <ul class = "list-unstyled">
                 <% @funds.where(:risktolerance => "aggressive").each do |fund| %>
-                <li><%= fund.name %></li>
+                <li><%= fund.name %>
+                  <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
                 <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
                 <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
                 <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+              </div>
+            </li>
                 <% end %>
               </ul>
+              </small>
             </td>
+
           </tr>
         </table>
       </div>
