@@ -7,6 +7,9 @@ class Allocation < ApplicationRecord
   belongs_to :client,
              :counter_cache => true
 
+
+  #  accepts_nested_attributes_for :client
+
   # Indirect associations
 
   # Validations

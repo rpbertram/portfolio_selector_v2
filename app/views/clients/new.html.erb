@@ -12,58 +12,160 @@
   <h2><b>Add Client</b></h2>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <form action="/create_client" method="post">
+
+<form action="/create_client" method="post">
+  <!-- Hidden input for authenticity token to protect from forgery -->
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+  <div class="row">
+    <div class="col-md-12">
+      <!-- <form action="/create_client" method="post"> -->
       <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+      <!-- <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"> -->
       <!-- Label and input for clientname -->
       <div class="form-group">
         <div class="col-md-6">
           <label for="clientname" class="control-label">Client's Name</label>
-          <input type="text" id="clientname" name="clientname" placeholder="Clientname" class="form-control" value="<%= @client.clientname %>">
+          <input type="text" id="clientname" name="clientname" placeholder="Enter name" class="form-control" value="<%= @client.clientname %>">
         </div>
         <!-- Label and input for risktolerance -->
         <div class="col-md-6">
           <label for="risktolerance" class="control-label">Client's Risk Tolerance</label>
-          <!-- <input type="text" id="risktolerance" name="risktolerance" placeholder="Risktolerance" class="form-control" value="<%= @client.risktolerance %>"> -->
-          <select class="form-control" type="text" id="risktolerance" name="risktolerance" placeholder="Risktolerance" value="<%= @client.risktolerance %>">
-            <option value="Income">Income</option>
-            <option value="Conservative">Conservative</option>
-            <option value="Moderately Conservative">Moderately Conservative</option>
-            <option value="Moderate">Moderate</option>
-            <option value="Moderately Aggressive">Moderately Aggressive</option>
-            <option value="Aggressive">Aggressive</option>
+          <select class="form-control" id="risktolerance" type="text" name="risktolerance"  value="<%= @client.risktolerance %>">
+            <option value="income">Income</option>
+            <option value="conservative">Conservative</option>
+            <option value="moderate conservative">Moderately Conservative</option>
+            <option value="moderate">Moderate</option>
+            <option value="moderate aggressive">Moderately Aggressive</option>
+            <option value="aggressive">Aggressive</option>
           </select>
-          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+        <!-- Label and input for accountsize -->
+        <div class="col-md-6">
+          <label for="accountsize" class="control-label">Client's Account Size</label>
+          <input type="text" id="accountsize" name="accountsize" placeholder="Enter account size as integer" class="form-control" value="<%= @client.accountsize %>">
         </div>
 
-
-
-          <div class="form-group">
-<!-- Label and input for accountsize -->
-            <div class="col-md-6">
-              <label for="accountsize" class="control-label">Client's Account Size</label>
-              <input type="text" id="accountsize" name="accountsize" placeholder="Accountsize" class="form-control" value="<%= @client.accountsize %>">
-            </div>
-
-            <div class="col-md-6">
-              <!-- Label and input for mgmt_fee -->
-                <label for="mgmt_fee" class="control-label">Total Management Fee</label>
-                <input type="text" id="mgmt_fee" name="mgmt_fee" placeholder="Mgmt fee" class="form-control" value="<%= @client.mgmt_fee %>">
-              </div>
-            </div>
-
-
-
-              <!-- Label and input for user_id -->
-              <input type="hidden" name="user_id" value="<%= current_user.id %>">
-
-              <button class="btn btn-success">
-                Create Client
-              </button>
-              or
-              <a href="/clients">Cancel</a>
-            </form>
-          </div>
+        <div class="col-md-6">
+          <!-- Label and input for mgmt_fee -->
+          <label for="mgmt_fee" class="control-label">Total Management Fee</label>
+          <input type="text" id="mgmt_fee" name="mgmt_fee" placeholder="Enter management fee as percent" class="form-control" value="<%= @client.mgmt_fee %>">
         </div>
+      </div>
+
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>">
+    </div>
+  </div>
+
+  <p></p>
+
+
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Enter Fund Allocations <small>(as decimals)</small></div>
+    <div class="panel-body">
+      <div class="form-group">
+        <table class="table">
+          <tr>
+            <th>Income</th>
+            <th>Conservative</th>
+            <th>Moderate Conservative</th>
+            <th>Moderate</th>
+            <th>Moderate Aggressive</th>
+            <th>Aggressive</th>
+          </tr>
+          <tr>
+            <td>
+              <ul class = "list-unstyled">
+                <% @funds.where(:risktolerance => "income").each do |fund| %>
+                <li><%= fund.name %>
+                  <label for="percentage" class="control-label"></label>
+                  <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
+                  <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
+                  <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+
+                </li>
+                <% end %>
+              </ul>
+            </td>
+
+            <td>
+              <ul class = "list-unstyled">
+                <% @funds.where(:risktolerance => "conservative").each do |fund| %>
+                <li><%= fund.name %></li>
+                <label for="percentage" class="control-label"></label>
+                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
+                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
+                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <% end %>
+              </ul>
+            </td>
+
+            <td>
+              <ul class = "list-unstyled">
+                <% @funds.where(:risktolerance => "moderate conservative").each do |fund| %>
+                <li><%= fund.name %></li>
+                <label for="percentage" class="control-label"></label>
+                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
+                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
+                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <% end %>
+              </ul>
+            </td>
+
+            <td>
+              <ul class = "list-unstyled">
+                <% @funds.where(:risktolerance => "moderate").each do |fund| %>
+                <li><%= fund.name %></li>
+                <label for="percentage" class="control-label"></label>
+                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
+                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
+                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <% end %>
+              </ul>
+            </td>
+
+            <td>
+              <ul class = "list-unstyled">
+                <% @funds.where(:risktolerance => "moderate aggressive").each do |fund| %>
+                <li><%= fund.name %></li>
+                <label for="percentage" class="control-label"></label>
+                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
+                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
+                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <% end %>
+              </ul>
+            </td>
+
+            <td>
+              <ul class = "list-unstyled">
+                <% @funds.where(:risktolerance => "aggressive").each do |fund| %>
+                <li><%= fund.name %></li>
+                <label for="percentage" class="control-label"></label>
+                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
+                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
+                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <% end %>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+  <button class="btn btn-success">
+    Create Client
+  </button>
+  or
+  <a href="/clients">Cancel</a>
+</form>

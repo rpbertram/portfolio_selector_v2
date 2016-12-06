@@ -25,12 +25,16 @@ class ClientsController < ApplicationController
 
   def new
     @client = Client.new
+    @allocation = Allocation.new
+    @funds = Fund.all
 
     render("clients/new.html.erb")
   end
 
   def create
     @client = Client.new
+    @allocation = Allocation.new
+    @funds = Fund.all
 
     @client.clientname = params[:clientname]
     @client.accountsize = params[:accountsize]
@@ -38,9 +42,14 @@ class ClientsController < ApplicationController
     @client.risktolerance = params[:risktolerance]
     @client.user_id = params[:user_id]
 
-    save_status = @client.save
+    @allocation.client_id = params[:client_id]
+    @allocation.fund_id = params[:fund_id]
+    @allocation.percentage = params[:percentage]
 
-    if save_status == true
+    save_status = @client.save
+    save_status2 = @allocation.save
+
+    if save_status == true && save_status2 == true
       referer = URI(request.referer).path
 
       case referer

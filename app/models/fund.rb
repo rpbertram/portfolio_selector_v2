@@ -13,6 +13,7 @@ class Fund < ApplicationRecord
              :through => :allocations,
              :source => :client
 
+
   # Validations
 
   validates :name, :uniqueness => { :scope => [:risktolerance] }
@@ -22,5 +23,6 @@ class Fund < ApplicationRecord
   validates :proxyflag, :presence => true
 
   validates :risktolerance, :presence => true
+
 
 end

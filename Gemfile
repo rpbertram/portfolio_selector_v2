@@ -2,7 +2,8 @@ source 'http://rubygems.org'
 
 gem "wdm" if Gem.win_platform?
 gem "coffee-script-source", "1.8.0"
-
+gem "money-rails"
+gem "money"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 group :development do
