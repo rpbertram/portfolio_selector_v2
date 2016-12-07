@@ -7,8 +7,8 @@ class FundsController < ApplicationController
   end
 
   def show
-    @historicalperformance = Historicalperformance.new
-    @allocation = Allocation.new
+    @historicalperformance = Historicalperformance.all
+    @allocation = Allocation.all
     @fund = Fund.find(params[:id])
 
     render("funds/show.html.erb")

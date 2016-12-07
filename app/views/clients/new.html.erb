@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="page-header">
-  <h2><b>Add Client</b></h2>
+  <h2><b>Add a New Client</b></h2>
 </div>
 
 
@@ -186,17 +186,24 @@
 
           </tr>
         </table>
+        <button class="btn-group btn-group-justified">
+          View Results
+        </button>
       </div>
     </div>
   </div>
 
-
+  <div class="panel panel-default">
+    <div class="panel-heading"><big>Hypothetical Portfolio Performance vs. Proxy</big></div>
+    <div class="panel-body">
   <%= line_chart Historicalperformance.group(:fund_id).group(:month).sum("performance"), curve: false %>
-
-
-  <button class="btn btn-success">
+</div>
+<div class="panel-footer">
+  <button class="btn btn-success btn-group-justified">
     Create Client
   </button>
   or
   <a href="/clients">Cancel</a>
+  </div>
+</div>
 </form>

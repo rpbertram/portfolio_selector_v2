@@ -4,7 +4,18 @@
   </h1>
 </div>
 
-<%= bar_chart @clients.group(:risktolerance).count %>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="col-xs-6">
+      <h5> <b>Clients by Risk Category</b> </h5>
+      <%= pie_chart current_user.clients.group(:risktolerance).count %>
+    </div>
+    <div class="col-xs-6">
+      <h5> <b>Total Assets Under Management by Risk Category </b></h5>
+      <%= column_chart current_user.clients.group(:risktolerance).sum(:accountsize), ytitle: "Total AUM" %>
+    </div>
+  </div>
+</div>
 
 
 <div class="panel panel-default">
