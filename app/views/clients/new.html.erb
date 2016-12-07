@@ -19,9 +19,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <!-- <form action="/create_client" method="post"> -->
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <!-- <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"> -->
+
       <!-- Label and input for clientname -->
       <div class="form-group">
         <div class="col-md-6">
@@ -192,6 +190,8 @@
     </div>
   </div>
 
+
+  <%= line_chart Historicalperformance.group(:fund_id).group(:month).sum("performance"), curve: false %>
 
 
   <button class="btn btn-success">
