@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201193944) do
+ActiveRecord::Schema.define(version: 20161207232150) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20161201193944) do
 
   create_table "historicalperformances", force: :cascade do |t|
     t.integer  "fund_id"
-    t.integer  "month"
+    t.string   "month"
     t.float    "performance"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -33,7 +33,7 @@ class ClientsController < ApplicationController
 
   def create
     @client = Client.new
-    @allocation = Allocation.new
+
     @funds = Fund.all
 
     @client.clientname = params[:clientname]
@@ -42,14 +42,20 @@ class ClientsController < ApplicationController
     @client.risktolerance = params[:risktolerance]
     @client.user_id = params[:user_id]
 
+
+    #i do not think this works propoerly
+    32.times do |i|
+    @allocation = Allocation.new
     @allocation.client_id = params[:client_id]
-    @allocation.fund_id = params[:fund_id]
-    @allocation.percentage = params[:percentage]
-
-    save_status = @client.save
+    @allocation.fund_id = params[:"#{i}"]
+    @allocation.percentage = params[:"#{i}_alloc"]
     save_status2 = @allocation.save
+    end
 
-    if save_status == true && save_status2 == true
+# add logic to make sure doesn't add up to more than one here -- if i get an error re-render page or redirect with a notice
+    save_status = @client.save
+
+    if save_status == true
       referer = URI(request.referer).path
 
       case referer

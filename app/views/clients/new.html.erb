@@ -69,7 +69,11 @@
     <!-- Default panel contents -->
     <div class="panel-heading"><big>Enter Fund Allocations</big> <small>(as decimals)</small></div>
     <div class="panel-body">
+
       <div class="form-group form-group-sm">
+
+        <input type="hidden" id="client_id" name="client_id" value="<%= @client.id %>">
+
         <table class="table">
           <tr>
             <th>Income</th>
@@ -88,9 +92,8 @@
                 <li><%= fund.name %>
                   <div class="input-group input-group-sm">
                   <label for="percentage" class="control-label"></label>
-                  <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
-                  <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
-                  <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                  <input type="hidden" id="fund_id" name="<%= fund.id %>" class="form-control" value="<%= fund.id %>">
+                  <input type="text" id="percentage" name="<%= fund.id %>_alloc" class="form-control" value="<%= @allocation.percentage %>">
                 </div>
                 </li>
                 <% end %>
@@ -105,9 +108,8 @@
                 <li><%= fund.name %>
                 <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
-                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
-                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
-                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <input type="hidden" id="fund_id" name="<%= fund.id %>" class="form-control" value="<%= fund.id %>">
+                <input type="text" id="percentage" name="<%= fund.id %>_alloc" class="form-control" value="<%= @allocation.percentage %>">
               </div>
             </li>
             <% end %>
@@ -122,9 +124,8 @@
                 <li><%= fund.name %>
                   <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
-                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
-                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
-                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <input type="hidden" id="fund_id" name="<%= fund.id %>" class="form-control" value="<%= fund.id %>">
+                <input type="text" id="percentage" name="<%= fund.id %>_alloc" class="form-control" value="<%= @allocation.percentage %>">
               </div>
             </li>
             <% end %>
@@ -140,9 +141,8 @@
                 <li><%= fund.name %>
                   <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
-                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
-                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
-                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <input type="hidden" id="fund_id" name="<%= fund.id %>" class="form-control" value="<%= fund.id %>">
+                <input type="text" id="percentage" name="<%= fund.id %>_alloc" class="form-control" value="<%= @allocation.percentage %>">
               </div>
             </li>
                 <% end %>
@@ -157,9 +157,8 @@
                 <li><%= fund.name %>
                 <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
-                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
-                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
-                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <input type="hidden" id="fund_id" name="<%= fund.id %>" class="form-control" value="<%= fund.id %>">
+                <input type="text" id="percentage" name="<%= fund.id %>_alloc" class="form-control" value="<%= @allocation.percentage %>">
               </div>
             </li>
                 <% end %>
@@ -174,9 +173,8 @@
                 <li><%= fund.name %>
                   <div class="input-group input-group-sm">
                 <label for="percentage" class="control-label"></label>
-                <input type="hidden" id="fund_id" name="fund_id" class="form-control" value="<%= @allocation.fund_id %>">
-                <input type="hidden" id="client_id" name="client_id" class="form-control" value="<%= @allocation.client_id %>">
-                <input type="text" id="percentage" name="percentage" class="form-control" value="<%= @allocation.percentage %>">
+                <input type="hidden" id="fund_id" name="<%= fund.id %>" class="form-control" value="<%= fund.id %>">
+                <input type="text" id="percentage" name="<%= fund.id %>_alloc" class="form-control" value="<%= @allocation.percentage %>">
               </div>
             </li>
                 <% end %>
@@ -186,7 +184,8 @@
 
           </tr>
         </table>
-        <button class="btn-group btn-group-justified">
+        <button class="btn-group btn-default btn-group-justified">
+          <!-- <a href="/clients/new">View Results</a> -->
           View Results
         </button>
       </div>
@@ -196,6 +195,7 @@
   <div class="panel panel-default">
     <div class="panel-heading"><big>Hypothetical Portfolio Performance vs. Proxy</big></div>
     <div class="panel-body">
+
   <%= line_chart Historicalperformance.group(:fund_id).group(:month).sum("performance"), curve: false %>
 </div>
 <div class="panel-footer">

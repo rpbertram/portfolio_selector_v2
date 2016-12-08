@@ -9,8 +9,7 @@
 
     <div class="form-group">
       <%= f.label :risktolerance_cont, "Filter by Risk Tolerance" %>
-      <%= f.text_field :risktolerance_cont, :class => "form-control", :placeholder => "Risk tolerance contains" %>
-
+      <%= select_tag(:risktolerance_cont, options_for_select(["income", "conservative", "moderate conservative", "moderate", "moderate aggressive" , "aggressive"])) %>
     </div>
   </div>
 
@@ -23,7 +22,6 @@
     </div>
   </div>
   <% end %>
-
 </div>
 
 <div class="panel panel-default">
@@ -48,23 +46,27 @@
         <% @performance = fund.historicalperformances.pluck(:performance) %>
         <% @array = Array.new(60,1)%>
         <% @perfplus1 = @performance.zip(@array).map{|a| a.inject(:+)} %>
-        <!-- <#% def sum
-        self.inject(0){|accum, i| accum + i }
+
+<!-- #replace self with variables -->
+<!-- create new variables for each of these -->
+        <% def sum
+
+         x = self.inject(0){|accum, i| accum + i }
         end %>
 
-        <#%  def mean
+        <%  def mean
         self.sum/self.length.to_f
         end %>
 
-        <#% def sample_variance
+        <% def sample_variance
         m = self.mean
         sum = self.inject(0){|accum, i| accum +(i-m)**2 }
         sum/(self.length - 1).to_f
         end %>
 
-        <#% def standard_deviation
+        <% def standard_deviation
         return Math.sqrt(self.sample_variance)
-        end %> -->
+        end %>
 
         <% @fivegrowth = @perfplus1.inject(1){|product, n| product * n} %>
         <% @cagr = @fivegrowth %>
