@@ -11,22 +11,83 @@
         <th></th>
         <th>5-year CAGR</th>
         <th>Standard Deviation</th>
-        <th>5-year Max Drawdown</th>
+        <!-- <th>5-year Max Drawdown</th> -->
         <th></th>
       </tr>
 
-<tr>
-  <td><%= @fund.name %>
-<td>Add calculation of CAGR</td>
-<td>Add calculation of SD</td>
-<td>Add calculation of drawdown</td>
+      <tr>
+        <td><%= @fund.name %>
+
+          <% @performance = @fund.historicalperformances.pluck(:performance) %>
+          <% @arrayofones = Array.new(60,1)%>
+          <% @perfplus1 = @performance.zip(@arrayofones).map{|a| a.inject(:+)} %>
+          <% @fivegrowth = @perfplus1.inject(1){|product, n| product * n} %>
+          <% @begin = 1.0 %>
+          <% @totgrowth = @fivegrowth/@begin %>
+          <% @cagr = 100*((@totgrowth)**(0.2) - 1.0) %>
+
+        <td><%=@cagr.round(2) %>%</td>
+
+          <% @sum = @perfplus1.inject(0){|accum, i| accum + i } %>
+          <% @mean = @sum/@perfplus1.length.to_f %>
+          <% @sumsq = @perfplus1.inject(0){|accum, i| accum +(i-@mean)**2 } %>
+          <% @sample_variance = @sumsq/(@perfplus1.length - 1).to_f %>
+          <% @stdev = Math.sqrt(@sample_variance) %>
+
+        <td><%= @stdev.round(3) %></td>
+
+          <% @cumulative = @perfplus1.inject([1]) { |(p,*ps),v| [v*p,p,*ps] }.reverse[1..-1]%>
+          <!-- <#% @cumulativebig = @cumulative * 1000000 %> -->
+          <% @max = @cumulative.max %>
+          <% @min = @cumulative.min %>
+          <% @maxdd = @max - @min %>
+        <!-- <td> <#%= @maxdd %> </td> -->
 </tr>
 <tr>
-  <td>S&ampP500 Index </td>
-  <td>Add calculation of CAGR</td>
-  <td>Add calculation of SD</td>
-  <td>Add calculation of drawdown</td>
+  <td>SP500 index </td>
+    <% @SPindex = Historicalperformance.where(:fund_id => "31").pluck(:performance)%>
+    <% @performance2 = @SPindex %>
+    <% @arrayofones2 = Array.new(60,1)%>
+    <% @perfplus12 = @performance2.zip(@arrayofones2).map{|a| a.inject(:+)} %>
+    <% @fivegrowth2 = @perfplus12.inject(1){|product, n| product * n} %>
+    <% @begin2 = 1.0 %>
+    <% @totgrowth2 = @fivegrowth2/@begin2 %>
+    <% @cagr2 = 100*((@totgrowth2)**(0.2) - 1.0) %>
+
+  <td><%=@cagr2.round(2) %>%</td>
+
+    <% @sum2 = @perfplus12.inject(0){|accum, i| accum + i } %>
+    <% @mean2 = @sum2/@perfplus12.length.to_f %>
+    <% @sumsq2 = @perfplus12.inject(0){|accum, i| accum +(i-@mean2)**2 } %>
+    <% @sample_variance2 = @sumsq2/(@perfplus12.length - 1).to_f %>
+    <% @stdev2 = Math.sqrt(@sample_variance2) %>
+
+  <td><%= @stdev2.round(3) %></td>
+  <!-- <td>Add calculation of drawdown</td> -->
   </tr>
+
+  <tr>
+    <td>Bond index </td>
+      <% @bondindex = Historicalperformance.where(:fund_id => "32").pluck(:performance)%>
+      <% @performance3 = @bondindex %>
+      <% @arrayofones3 = Array.new(60,1)%>
+      <% @perfplus13 = @performance3.zip(@arrayofones3).map{|a| a.inject(:+)} %>
+      <% @fivegrowth3 = @perfplus13.inject(1){|product, n| product * n} %>
+      <% @begin3 = 1.0 %>
+      <% @totgrowth3 = @fivegrowth3/@begin3 %>
+      <% @cagr3 = 100*((@totgrowth3)**(0.2) - 1.0) %>
+
+    <td><%=@cagr3.round(2) %>%</td>
+
+      <% @sum3 = @perfplus13.inject(0){|accum, i| accum + i } %>
+      <% @mean3 = @sum3/@perfplus13.length.to_f %>
+      <% @sumsq3 = @perfplus13.inject(0){|accum, i| accum +(i-@mean2)**2 } %>
+      <% @sample_variance3 = @sumsq3/(@perfplus13.length - 1).to_f %>
+      <% @stdev3 = Math.sqrt(@sample_variance3) %>
+
+    <td><%= @stdev3.round(3) %></td>
+    <!-- <td>Add calculation of drawdown</td> -->
+    </tr>
 </table>
 </div>
 </div>

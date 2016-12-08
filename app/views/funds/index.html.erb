@@ -9,7 +9,8 @@
 
     <div class="form-group">
       <%= f.label :risktolerance_cont, "Filter by Risk Tolerance" %>
-      <%= select_tag(:risktolerance_cont, options_for_select(["income", "conservative", "moderate conservative", "moderate", "moderate aggressive" , "aggressive"])) %>
+      <%= select_tag(:risktolerance_cont, options_for_select(["income", "conservative", "moderate conservative", "moderate", "moderate aggressive" , "aggressive"]), :class => "form-control", :placeholder => "income")  %>
+      <!-- dropdown doesn't work -->
     </div>
   </div>
 
