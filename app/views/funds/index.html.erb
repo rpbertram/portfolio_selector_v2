@@ -36,7 +36,6 @@
         <!-- <th>Proxyflag</th> -->
         <th>5-year CAGR</th>
         <th>Standard Deviation</th>
-        <th>5-year Max Drawdown</th>
         <th></th>
       </tr>
 
@@ -45,36 +44,23 @@
         <td><%= fund.name %></td>
         <td><%= fund.risktolerance %></td>
         <% @performance = fund.historicalperformances.pluck(:performance) %>
-        <% @array = Array.new(60,1)%>
-        <% @perfplus1 = @performance.zip(@array).map{|a| a.inject(:+)} %>
-
-<!-- #replace self with variables -->
-<!-- create new variables for each of these -->
-        <% def sum
-
-         x = self.inject(0){|accum, i| accum + i }
-        end %>
-
-        <%  def mean
-        self.sum/self.length.to_f
-        end %>
-
-        <% def sample_variance
-        m = self.mean
-        sum = self.inject(0){|accum, i| accum +(i-m)**2 }
-        sum/(self.length - 1).to_f
-        end %>
-
-        <% def standard_deviation
-        return Math.sqrt(self.sample_variance)
-        end %>
+        <% @arrayofones = Array.new(60,1)%>
+        <% @perfplus1 = @performance.zip(@arrayofones).map{|a| a.inject(:+)} %>
+        <% @fivegrowth = @perfplus1.inject(1){|product, n| product * n} %>
+        <% @begin = 1.0 %>
+        <% @totgrowth = @fivegrowth/@begin %>
+        <% @cagr = 100*((@totgrowth)**(0.2) - 1.0) %>
+        <% @sum = @perfplus1.inject(0){|accum, i| accum + i } %>
+        <% @mean = @sum/@perfplus1.length.to_f %>
+        <% @sumsq = @perfplus1.inject(0){|accum, i| accum +(i-@mean)**2 } %>
+        <% @sample_variance = @sumsq/(@perfplus1.length - 1).to_f %>
+        <% @stdev = Math.sqrt(@sample_variance) %>
+        <% @cumulative = @perfplus1.inject([1]) { |(p,*ps),v| [v*p,p,*ps] }.reverse[1..-1]%>
 
         <% @fivegrowth = @perfplus1.inject(1){|product, n| product * n} %>
-        <% @cagr = @fivegrowth %>
-        <td><%= @cagr %></td>
+        <td><%= @cagr.round(2) %>%</td>
         <!-- <td><#%= @perfplus1.standard_deviation %>Add calculation of SD</td> -->
-        <td>Add calculation of SD</td>
-        <td>Add calculation of drawdown</td>
+        <td><%= @stdev.round(2) %></td>
         <td>
           <a href="/funds/<%= fund.id %>" class="btn btn-primary">View Historical Performance</a>
           <!-- <a href="/funds/<%= fund.id %>/edit" class="btn btn-warning">Edit</a>

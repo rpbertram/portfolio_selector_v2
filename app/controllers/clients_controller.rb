@@ -41,19 +41,19 @@ class ClientsController < ApplicationController
     @client.mgmt_fee = params[:mgmt_fee]
     @client.risktolerance = params[:risktolerance]
     @client.user_id = params[:user_id]
-
+    save_status = @client.save
 
     #i do not think this works propoerly
     32.times do |i|
     @allocation = Allocation.new
     @allocation.client_id = params[:client_id]
-    @allocation.fund_id = params[:"#{i}"]
-    @allocation.percentage = params[:"#{i}_alloc"]
+    @allocation.fund_id = params["#{i}"]
+    @allocation.percentage = params["#{i}_alloc"]
     save_status2 = @allocation.save
     end
 
 # add logic to make sure doesn't add up to more than one here -- if i get an error re-render page or redirect with a notice
-    save_status = @client.save
+
 
     if save_status == true
       referer = URI(request.referer).path
@@ -71,12 +71,16 @@ class ClientsController < ApplicationController
 
   def edit
     @client = Client.find(params[:id])
+    @funds = Fund.all
+    @allocation = Allocation.where(:client_id => params[:id])
 
     render("clients/edit.html.erb")
   end
 
   def update
     @client = Client.find(params[:id])
+    @funds = Fund.all
+    @allocation = Allocation.new
 
     @client.clientname = params[:clientname]
     @client.accountsize = params[:accountsize]

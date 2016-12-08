@@ -2,8 +2,28 @@
   <h3>FUND: <%= @fund.name %>.   RISK TOLERANCE: <%= @fund.risktolerance %> </h3>
 </div>
 
-<!-- line chart doesn't work correctly -->
-<%= line_chart Historicalperformance.where(:fund_id == @fund.id).group(:month).sum("performance"), curve: false %>
+<% @performance = @fund.historicalperformances.pluck(:performance) %>
+<% @arrayofones = Array.new(60,1)%>
+<% @perfplus1 = @performance.zip(@arrayofones).map{|a| a.inject(:+)} %>
+<% @fivegrowth = @perfplus1.inject(1){|product, n| product * n} %>
+<% @begin = 1.0 %>
+<% @totgrowth = @fivegrowth/@begin %>
+<% @cagr = 100*((@totgrowth)**(0.2) - 1.0) %>
+<% @sum = @perfplus1.inject(0){|accum, i| accum + i } %>
+<% @mean = @sum/@perfplus1.length.to_f %>
+<% @sumsq = @perfplus1.inject(0){|accum, i| accum +(i-@mean)**2 } %>
+<% @sample_variance = @sumsq/(@perfplus1.length - 1).to_f %>
+<% @stdev = Math.sqrt(@sample_variance) %>
+<% @cumulative = @perfplus1.inject([1]) { |(p,*ps),v| [v*p,p,*ps] }.reverse[1..-1]%>
+
+<% @histperf = Hash.new %>
+<% Historicalperformance.where(:fund_id == @fund.id).group(:month).sum("performance").each_with_index do  |perf, index|  %>
+<% date = "#{perf[0][2,4]}-#{perf[0][0,2]}-01" %>
+<% @histperf[date] = @cumulative[index] %>
+<% end %>
+
+<%= line_chart @histperf, curve: false %>
+
 
 <div class="panel panel-default">
   <div class="panel-body">
@@ -18,26 +38,11 @@
 
       <tr>
         <td><%= @fund.name %>
-
-          <% @performance = @fund.historicalperformances.pluck(:performance) %>
-          <% @arrayofones = Array.new(60,1)%>
-          <% @perfplus1 = @performance.zip(@arrayofones).map{|a| a.inject(:+)} %>
-          <% @fivegrowth = @perfplus1.inject(1){|product, n| product * n} %>
-          <% @begin = 1.0 %>
-          <% @totgrowth = @fivegrowth/@begin %>
-          <% @cagr = 100*((@totgrowth)**(0.2) - 1.0) %>
-
         <td><%=@cagr.round(2) %>%</td>
-
-          <% @sum = @perfplus1.inject(0){|accum, i| accum + i } %>
-          <% @mean = @sum/@perfplus1.length.to_f %>
-          <% @sumsq = @perfplus1.inject(0){|accum, i| accum +(i-@mean)**2 } %>
-          <% @sample_variance = @sumsq/(@perfplus1.length - 1).to_f %>
-          <% @stdev = Math.sqrt(@sample_variance) %>
 
         <td><%= @stdev.round(3) %></td>
 
-          <% @cumulative = @perfplus1.inject([1]) { |(p,*ps),v| [v*p,p,*ps] }.reverse[1..-1]%>
+
           <!-- <#% @cumulativebig = @cumulative * 1000000 %> -->
           <!-- <#% @max = @cumulative.max %>
           <#% @min = @cumulative.min %>
