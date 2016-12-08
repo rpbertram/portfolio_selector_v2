@@ -36,7 +36,7 @@
       <% @wtdpercent = Historicalperformance.where(:fund_id => "fund").pluck(:performance) * @portfolio.pluck(:percentage) %>
       <% end %>
 
-      <% @portperf = Historicalperformance[:portfolio => i].pluck(:performance)*@weights%>
+    <% @portperf = Historicalperformance[:portfolio => i].pluck(:performance)*@weights%>
       <% end %>
 
     <% @performance = @fund.historicalperformances.pluck(:performance) %>
