@@ -2,6 +2,7 @@
   <h3>FUND: <%= @fund.name %>.   RISK TOLERANCE: <%= @fund.risktolerance %> </h3>
 </div>
 
+<!-- line chart doesn't work correctly -->
 <%= line_chart Historicalperformance.where(:fund_id == @fund.id).group(:month).sum("performance"), curve: false %>
 
 <div class="panel panel-default">
@@ -38,9 +39,9 @@
 
           <% @cumulative = @perfplus1.inject([1]) { |(p,*ps),v| [v*p,p,*ps] }.reverse[1..-1]%>
           <!-- <#% @cumulativebig = @cumulative * 1000000 %> -->
-          <% @max = @cumulative.max %>
-          <% @min = @cumulative.min %>
-          <% @maxdd = @max - @min %>
+          <!-- <#% @max = @cumulative.max %>
+          <#% @min = @cumulative.min %>
+          <#% @maxdd = @max - @min %> -->
         <!-- <td> <#%= @maxdd %> </td> -->
 </tr>
 <tr>

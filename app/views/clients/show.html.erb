@@ -28,7 +28,34 @@
       <%= pie_chart @client.allocations.group(:fund_id).sum(:percentage) %>
       <!-- labels in pie chart are incorrect, would like to show fund name rather than fund id -->
     </div>
-    
+
+    <%  %>
+    <%= @portfolio = Allocation.where(:client_id => @client.id).pluck(:fund_id, :percentage) %>
+
+      <% @portfolio.each do |fund| %>
+      <% @wtdpercent = Historicalperformance.where(:fund_id => "fund").pluck(:performance) * @portfolio.pluck(:percentage) %>
+      <% end %>
+
+      <% @portperf = Historicalperformance[:portfolio => i].pluck(:performance)*@weights%>
+      <% end %>
+
+    <% @performance = @fund.historicalperformances.pluck(:performance) %>
+    <% @arrayofones = Array.new(60,1)%>
+    <% @perfplus1 = @performance.zip(@arrayofones).map{|a| a.inject(:+)} %>
+    <% @fivegrowth = @perfplus1.inject(1){|product, n| product * n} %>
+    <% @begin = 1.0 %>
+    <% @totgrowth = @fivegrowth/@begin %>
+    <% @cagr = 100*((@totgrowth)**(0.2) - 1.0) %>
+
+    <% @sum = @perfplus1.inject(0){|accum, i| accum + i } %>
+    <% @mean = @sum/@perfplus1.length.to_f %>
+    <% @sumsq = @perfplus1.inject(0){|accum, i| accum +(i-@mean)**2 } %>
+    <% @sample_variance = @sumsq/(@perfplus1.length - 1).to_f %>
+    <% @stdev = Math.sqrt(@sample_variance) %>
+
+    <% @cumulative = @perfplus1.inject([1]) { |(p,*ps),v| [v*p,p,*ps] }.reverse[1..-1]%>
+
+
     <div class="col-xs-6">
       <h5> <b>Historical Portfolio Performance</b></h5>
       <%= line_chart Historicalperformance.group(:fund_id).group(:month).sum(:performance), ytitle: "Percent Growth", curve: false %>
